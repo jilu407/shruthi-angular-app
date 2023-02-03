@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('SCM') {
+            steps {
+               git 'https://github.com/jilu407/shruthi-angular-app.git'
+            }
+        }
+        stage('install') {
+            steps {
+               sh 'npm install'
+            }
+        }
+        stage('build') {
+            steps {
+               sh 'npm run build --prod'
+            }
+        }
+        stage('deploy') {
+            steps {
+               ansiblePlaybook become: true, credentialsId: '7b24013d-b1e9-43ab-9e93-91a1454c2b42', inventory: 'host.inv', playbook: 'play-deploy.yml'
+            }
+        }
+    }
+}
