@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  name: first playbook
+  tasks:
+    - name: install web server software
+      yum:
+        name: httpd
+        state: present
+    - name: start web server
+      service:
+        name: httpd
+        state: started
+    - name: copy data
+      copy:
+        src: /var/lib/jenkins/workspace/ansi-deploy/dist/shruthi-app/
+        dest: /var/www/html/
