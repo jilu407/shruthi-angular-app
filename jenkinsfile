@@ -19,7 +19,8 @@ pipeline {
         }
         stage('deploy') {
             steps {
-               ansiblePlaybook become: true, credentialsId: '7b24013d-b1e9-43ab-9e93-91a1454c2b42', inventory: 'host.inv', playbook: 'play-deploy.yml'
+               ansiblePlaybook credentialsId: '7b24013d-b1e9-43ab-9e93-91a1454c2b42', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts.inv', playbook: 'play-deploy.yml', sudoUser: null
+
             }
         }
     }
